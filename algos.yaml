@@ -52,6 +52,42 @@ random-xs:
               "nprobe=4,quantizer_efSearch=4",
               "nprobe=2,quantizer_efSearch=16"]
 deep-10M:
+    choonsik:
+      docker-tag: billion-scale-benchmark-choonsik
+      module: benchmark.algorithms.choonsik
+      constructor: Choonsik
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: |
+              [{"hnsw_m": 32, "hnsw_ef": 200, "opq_m": 24, "opq_pk": 1024,
+              "opq_sample_cnt": 3276800, "pca_sample_cnt": 3276800,
+              "cent_sample_cnt": 3276800, "cent_level1_sample_cnt": 512000,
+              "cent_level1_k": 256, "cent_level2_k": 256}]
+          query-args: |
+              [{"w": 16, "ef": 16},
+              {"w": 16, "ef": 32},
+              {"w": 16, "ef": 64},
+              {"w": 16, "ef": 128},
+              {"w": 32, "ef": 16},
+              {"w": 32, "ef": 32},
+              {"w": 32, "ef": 64},
+              {"w": 32, "ef": 128},
+              {"w": 32, "ef": 256},
+              {"w": 64, "ef": 16},
+              {"w": 64, "ef": 32},
+              {"w": 64, "ef": 64},
+              {"w": 64, "ef": 128},
+              {"w": 64, "ef": 256},
+              {"w": 64, "ef": 512},
+              {"w": 128, "ef": 32},
+              {"w": 128, "ef": 64},
+              {"w": 128, "ef": 128},
+              {"w": 128, "ef": 256},
+              {"w": 128, "ef": 512},
+              {"w": 256, "ef": 64},
+              {"w": 256, "ef": 128}]
+
     faiss-t1:
       docker-tag: billion-scale-benchmark-faissconda
       module: benchmark.algorithms.faiss_t1
