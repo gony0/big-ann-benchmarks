@@ -29,8 +29,10 @@ class Choonsik(BaseANN):
         index_prefix = os.path.join(index_dir, 'model')
 
         self._index = choonsik.BigAnnIndex(self._metric, self._ip)
-        print('Creating Index. Index directory: {index_dir}')
-        self._index.fit(ds.get_dataset_fn(), index_prefix)
+        print(f'Creating Index. Index directory: {index_dir}')
+        input_fn = ds.get_dataset_fn()
+        print(f'Input: {input_fn}')
+        self._index.fit(input_fn, index_prefix)
 
     def load_index(self, dataset):
         # XXX: temporary disable loading index. fit use cache if exists
@@ -45,6 +47,7 @@ class Choonsik(BaseANN):
         return True
 
     def set_query_arguments(self, query_params):
+        print(f'query_params: {query_params}')
         self._qp = query_params
         self._index.set_search_opt(self._qp)
 
