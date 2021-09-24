@@ -16,7 +16,7 @@ class Choonsik(BaseANN):
             self._ip['n_threads'] = multiprocessing.cpu_count()
 
     def get_index_dir(self, dataset):
-        params = f'm{self._ip["hnsw_m"]}_ef{self._ip["hnsw_ef"]}_pq{self._ip["opq_m"]}'
+        params = f'm{self._ip["hnsw_m"]}_ef{self._ip["hnsw_ef"]}_pq{self._ip["opq_m"]}_pqk{self._ip["opq_pk"]}'
         if 'model_suffix' in self._ip:
             params += f'_{self._ip["model_suffix"]}'
         return os.path.join("data", f'choonsik_{dataset}_{params}')
