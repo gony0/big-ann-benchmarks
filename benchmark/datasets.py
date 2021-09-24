@@ -244,18 +244,17 @@ class DatasetCompetitionFormat(Dataset):
         fn = self.ds_fn
         sourceurl = os.path.join(self.base_url, fn)
         outfile = os.path.join(self.basedir, fn)
+        if self.nb != 10**9:
+            outfile += '.crop_nb_%d' % self.nb
         if os.path.exists(outfile):
             print("file %s already exists" % outfile)
             return
+
         if self.nb == 10**9:
             download_accelerated(sourceurl, outfile)
         else:
             # download cropped version of file
             file_size = 8 + self.d * self.nb * np.dtype(self.dtype).itemsize
-            outfile = outfile + '.crop_nb_%d' % self.nb
-            if os.path.exists(outfile):
-                print("file %s already exists" % outfile)
-                return
             download(sourceurl, outfile, max_size=file_size)
             # then overwrite the header...
             header = np.memmap(outfile, shape=2, dtype='uint32', mode="r+")
@@ -265,10 +264,9 @@ class DatasetCompetitionFormat(Dataset):
 
     def get_dataset_fn(self):
         fn = os.path.join(self.basedir, self.ds_fn)
-        if os.path.exists(fn):
-            return fn
         if self.nb != 10**9:
             fn += '.crop_nb_%d' % self.nb
+        if os.path.exists(fn):
             return fn
         else:
             raise RuntimeError("file not found")

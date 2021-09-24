@@ -103,7 +103,37 @@ deep-10M:
               "nprobe=2,quantizer_efSearch=4",
               "nprobe=2,quantizer_efSearch=8",
               "nprobe=4,quantizer_efSearch=4",
-              "nprobe=2,quantizer_efSearch=16"]
+              "nprobe=2,quantizer_efSearch=16",
+              "nprobe=4,quantizer_efSearch=8",
+              "nprobe=4,quantizer_efSearch=16",
+              "nprobe=8,quantizer_efSearch=4",
+              "nprobe=8,quantizer_efSearch=8",
+              "nprobe=8,quantizer_efSearch=16",
+              "nprobe=8,quantizer_efSearch=32",
+              "nprobe=8,quantizer_efSearch=64",
+              "nprobe=16,quantizer_efSearch=8",
+              "nprobe=16,quantizer_efSearch=16",
+              "nprobe=16,quantizer_efSearch=32",
+              "nprobe=16,quantizer_efSearch=64",
+              "nprobe=16,quantizer_efSearch=128",
+              "nprobe=32,quantizer_efSearch=16",
+              "nprobe=32,quantizer_efSearch=32",
+              "nprobe=32,quantizer_efSearch=64",
+              "nprobe=32,quantizer_efSearch=128",
+              "nprobe=32,quantizer_efSearch=256",
+              "nprobe=64,quantizer_efSearch=16",
+              "nprobe=64,quantizer_efSearch=32",
+              "nprobe=64,quantizer_efSearch=64",
+              "nprobe=64,quantizer_efSearch=128",
+              "nprobe=64,quantizer_efSearch=256",
+              "nprobe=64,quantizer_efSearch=512",
+              "nprobe=128,quantizer_efSearch=32",
+              "nprobe=128,quantizer_efSearch=64",
+              "nprobe=128,quantizer_efSearch=128",
+              "nprobe=128,quantizer_efSearch=256",
+              "nprobe=128,quantizer_efSearch=512",
+              "nprobe=256,quantizer_efSearch=64",
+              "nprobe=256,quantizer_efSearch=128"]
 deep-1B:
     choonsik:
       docker-tag: billion-scale-benchmark-choonsik
@@ -223,6 +253,30 @@ msspacev-1B:
               "nprobe=128,quantizer_efSearch=512",
               "nprobe=256,quantizer_efSearch=256",
               "nprobe=256,quantizer_efSearch=512"]
+
+msturing-1M:
+    choonsik:
+      docker-tag: billion-scale-benchmark-choonsik
+      module: benchmark.algorithms.choonsik
+      constructor: Choonsik
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: |
+              [{"hnsw_m": 32, "hnsw_ef": 100, "opq_m": 25, "opq_pk": 1024,
+              "opq_sample_cnt": 3276800, "pca_sample_cnt": 3276800,
+              "cent_sample_cnt": 3276800, "cent_level1_sample_cnt": 512000,
+              "cent_level1_k": 256, "cent_level2_k": 256}]
+          query-args: |
+              [{"w": 16, "ef": 16},
+              {"w": 16, "ef": 32},
+              {"w": 16, "ef": 64},
+              {"w": 16, "ef": 128},
+              {"w": 32, "ef": 16},
+              {"w": 32, "ef": 32},
+              {"w": 32, "ef": 64},
+              {"w": 32, "ef": 128},
+              {"w": 32, "ef": 256}]
 msturing-1B:
     faiss-t1:
       docker-tag: billion-scale-benchmark-faissconda
