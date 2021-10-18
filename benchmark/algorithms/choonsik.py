@@ -27,23 +27,22 @@ class Choonsik(BaseANN):
         index_dir = self.get_index_dir(dataset)
         os.makedirs(index_dir, exist_ok=True)
         index_prefix = os.path.join(index_dir, 'model')
+        os.remove(index_prefix) if os.path.exists(index_prefix) else None
 
         self._index = choonsik.BigAnnIndex(self._metric, self._ip)
         print(f'Creating Index. Index directory: {index_dir}')
         input_fn = ds.get_dataset_fn()
         print(f'Input: {input_fn}')
         self._index.fit(input_fn, index_prefix)
+        os.rename(index_prefix, index_prefix + '.choonsik') if os.path.exists(index_prefix) else None
 
     def load_index(self, dataset):
-        # XXX: temporary disable loading index. fit use cache if exists
-        return False
-
         index_dir = self.get_index_dir(dataset)
-        if not os.path.exists(index_dir):
+        index = os.path.join(index_dir, 'model.choonsik')
+        if not os.path.exists(index):
             return False
-        index_prefix = os.path.join(index_dir, 'model')
-        print(f'Loding index from file. Index directory: {index_dir}')
-        self._index = choonsik.load_index(self._metric, index_prefix)
+        print(f'Loding index from file. Index file: {index}')
+        self._index = choonsik.load_index(self._metric, index)
         return True
 
     def set_query_arguments(self, query_params):
