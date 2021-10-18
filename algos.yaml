@@ -135,7 +135,7 @@ deep-10M:
               "nprobe=256,quantizer_efSearch=64",
               "nprobe=256,quantizer_efSearch=128"]
 deep-1B:
-    choonsik:
+    choonsik-dev-20211018:
       docker-tag: billion-scale-benchmark-choonsik
       module: benchmark.algorithms.choonsik
       constructor: Choonsik
@@ -143,30 +143,37 @@ deep-1B:
       run-groups:
         base:
           args: |
-              [{"hnsw_m": 32, "hnsw_ef": 200, "opq_m": 48, "opq_pk": 1024}]
+              [{"model_suffix": "dev-20211018", "hnsw_m": 12, "hnsw_ef": 800, "opq_m": 48, "opq_pk": 256,
+              "cent_sample_cnt": 209715200, "cent_level1_sample_cnt": 20480000, "cent_level1_k": 3000, "cent_level2_k": 5000}]
           query-args: |
-              [{"w": 16, "ef": 16},
-              {"w": 16, "ef": 32},
-              {"w": 16, "ef": 64},
-              {"w": 16, "ef": 128},
-              {"w": 32, "ef": 16},
+              [
               {"w": 32, "ef": 32},
+              {"w": 32, "ef": 48},
               {"w": 32, "ef": 64},
-              {"w": 32, "ef": 128},
-              {"w": 32, "ef": 256},
-              {"w": 64, "ef": 16},
-              {"w": 64, "ef": 32},
+              {"w": 48, "ef": 32},
+              {"w": 48, "ef": 48},
+              {"w": 48, "ef": 64},
+              {"w": 48, "ef": 80},
+              {"w": 64, "ef": 48},
               {"w": 64, "ef": 64},
-              {"w": 64, "ef": 128},
-              {"w": 64, "ef": 256},
-              {"w": 64, "ef": 512},
-              {"w": 128, "ef": 32},
-              {"w": 128, "ef": 64},
-              {"w": 128, "ef": 128},
-              {"w": 128, "ef": 256},
-              {"w": 128, "ef": 512},
-              {"w": 256, "ef": 64},
-              {"w": 256, "ef": 128}]
+              {"w": 64, "ef": 80},
+              {"w": 64, "ef": 96},
+              {"w": 80, "ef": 64},
+              {"w": 80, "ef": 80},
+              {"w": 80, "ef": 96},
+              {"w": 80, "ef": 112},
+              {"w": 80, "ef": 128},
+              {"w": 96, "ef": 80},
+              {"w": 96, "ef": 96},
+              {"w": 96, "ef": 112},
+              {"w": 96, "ef": 128},
+              {"w": 112, "ef": 96},
+              {"w": 112, "ef": 112},
+              {"w": 112, "ef": 128},
+              {"w": 128, "ef": 112},
+              {"w": 128, "ef": 128}
+              ]
+
     faiss-t1:
       docker-tag: billion-scale-benchmark-faissconda
       module: benchmark.algorithms.faiss_t1
