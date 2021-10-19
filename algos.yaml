@@ -52,42 +52,6 @@ random-xs:
               "nprobe=4,quantizer_efSearch=4",
               "nprobe=2,quantizer_efSearch=16"]
 deep-10M:
-    choonsik:
-      docker-tag: billion-scale-benchmark-choonsik
-      module: benchmark.algorithms.choonsik
-      constructor: Choonsik
-      base-args: ["@metric"]
-      run-groups:
-        base:
-          args: |
-              [{"hnsw_m": 32, "hnsw_ef": 200, "opq_m": 24, "opq_pk": 1024,
-              "opq_sample_cnt": 3276800, "pca_sample_cnt": 3276800,
-              "cent_sample_cnt": 3276800, "cent_level1_sample_cnt": 512000,
-              "cent_level1_k": 256, "cent_level2_k": 256}]
-          query-args: |
-              [{"w": 16, "ef": 16},
-              {"w": 16, "ef": 32},
-              {"w": 16, "ef": 64},
-              {"w": 16, "ef": 128},
-              {"w": 32, "ef": 16},
-              {"w": 32, "ef": 32},
-              {"w": 32, "ef": 64},
-              {"w": 32, "ef": 128},
-              {"w": 32, "ef": 256},
-              {"w": 64, "ef": 16},
-              {"w": 64, "ef": 32},
-              {"w": 64, "ef": 64},
-              {"w": 64, "ef": 128},
-              {"w": 64, "ef": 256},
-              {"w": 64, "ef": 512},
-              {"w": 128, "ef": 32},
-              {"w": 128, "ef": 64},
-              {"w": 128, "ef": 128},
-              {"w": 128, "ef": 256},
-              {"w": 128, "ef": 512},
-              {"w": 256, "ef": 64},
-              {"w": 256, "ef": 128}]
-
     faiss-t1:
       docker-tag: billion-scale-benchmark-faissconda
       module: benchmark.algorithms.faiss_t1
@@ -135,7 +99,7 @@ deep-10M:
               "nprobe=256,quantizer_efSearch=64",
               "nprobe=256,quantizer_efSearch=128"]
 deep-1B:
-    choonsik-dev-20211018:
+    choonsik-dev:
       docker-tag: billion-scale-benchmark-choonsik
       module: benchmark.algorithms.choonsik
       constructor: Choonsik
@@ -143,21 +107,19 @@ deep-1B:
       run-groups:
         base:
           args: |
-              [{"model_suffix": "dev-20211018", "hnsw_m": 12, "hnsw_ef": 800, "opq_m": 48, "opq_pk": 256,
+              [{"model_suffix": "dev", "hnsw_m": 12, "hnsw_ef": 800, "opq_m": 48, "opq_pk": 256,
               "cent_sample_cnt": 209715200, "cent_level1_sample_cnt": 20480000, "cent_level1_k": 3000, "cent_level2_k": 5000}]
           query-args: |
               [
-              {"w": 32, "ef": 32},
-              {"w": 32, "ef": 48},
-              {"w": 32, "ef": 64},
-              {"w": 48, "ef": 32},
               {"w": 48, "ef": 48},
               {"w": 48, "ef": 64},
               {"w": 48, "ef": 80},
-              {"w": 64, "ef": 48},
+              {"w": 48, "ef": 96},
               {"w": 64, "ef": 64},
               {"w": 64, "ef": 80},
               {"w": 64, "ef": 96},
+              {"w": 64, "ef": 112},
+              {"w": 64, "ef": 128},
               {"w": 80, "ef": 64},
               {"w": 80, "ef": 80},
               {"w": 80, "ef": 96},
@@ -173,7 +135,6 @@ deep-1B:
               {"w": 128, "ef": 112},
               {"w": 128, "ef": 128}
               ]
-
     faiss-t1:
       docker-tag: billion-scale-benchmark-faissconda
       module: benchmark.algorithms.faiss_t1
@@ -222,6 +183,42 @@ deep-1B:
               "nprobe=256,quantizer_efSearch=64",
               "nprobe=256,quantizer_efSearch=128"]
 msspacev-1B:
+    choonsik-dev:
+      docker-tag: billion-scale-benchmark-choonsik
+      module: benchmark.algorithms.choonsik
+      constructor: Choonsik
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: |
+              [{"model_suffix": "dev", "hnsw_m": 12, "hnsw_ef": 800, "opq_m": 50, "opq_pk": 256,
+              "cent_sample_cnt": 209715200, "cent_level1_sample_cnt": 20480000, "cent_level1_k": 3000, "cent_level2_k": 5000}]
+          query-args: |
+              [
+              {"w": 48, "ef": 48},
+              {"w": 48, "ef": 64},
+              {"w": 48, "ef": 80},
+              {"w": 48, "ef": 96},
+              {"w": 64, "ef": 64},
+              {"w": 64, "ef": 80},
+              {"w": 64, "ef": 96},
+              {"w": 64, "ef": 112},
+              {"w": 64, "ef": 128},
+              {"w": 80, "ef": 64},
+              {"w": 80, "ef": 80},
+              {"w": 80, "ef": 96},
+              {"w": 80, "ef": 112},
+              {"w": 80, "ef": 128},
+              {"w": 96, "ef": 80},
+              {"w": 96, "ef": 96},
+              {"w": 96, "ef": 112},
+              {"w": 96, "ef": 128},
+              {"w": 112, "ef": 96},
+              {"w": 112, "ef": 112},
+              {"w": 112, "ef": 128},
+              {"w": 128, "ef": 112},
+              {"w": 128, "ef": 128}
+              ]
     faiss-t1:
       docker-tag: billion-scale-benchmark-faissconda
       module: benchmark.algorithms.faiss_t1
@@ -260,9 +257,8 @@ msspacev-1B:
               "nprobe=128,quantizer_efSearch=512",
               "nprobe=256,quantizer_efSearch=256",
               "nprobe=256,quantizer_efSearch=512"]
-
-msturing-1M:
-    choonsik:
+msturing-1B:
+    choonsik-dev:
       docker-tag: billion-scale-benchmark-choonsik
       module: benchmark.algorithms.choonsik
       constructor: Choonsik
@@ -270,21 +266,34 @@ msturing-1M:
       run-groups:
         base:
           args: |
-              [{"hnsw_m": 32, "hnsw_ef": 100, "opq_m": 25, "opq_pk": 1024,
-              "opq_sample_cnt": 3276800, "pca_sample_cnt": 3276800,
-              "cent_sample_cnt": 3276800, "cent_level1_sample_cnt": 512000,
-              "cent_level1_k": 256, "cent_level2_k": 256}]
+              [{"model_suffix": "dev", "hnsw_m": 12, "hnsw_ef": 800, "opq_m": 50, "opq_pk": 256,
+              "cent_sample_cnt": 209715200, "cent_level1_sample_cnt": 20480000, "cent_level1_k": 3000, "cent_level2_k": 5000}]
           query-args: |
-              [{"w": 16, "ef": 16},
-              {"w": 16, "ef": 32},
-              {"w": 16, "ef": 64},
-              {"w": 16, "ef": 128},
-              {"w": 32, "ef": 16},
-              {"w": 32, "ef": 32},
-              {"w": 32, "ef": 64},
-              {"w": 32, "ef": 128},
-              {"w": 32, "ef": 256}]
-msturing-1B:
+              [
+              {"w": 48, "ef": 48},
+              {"w": 48, "ef": 64},
+              {"w": 48, "ef": 80},
+              {"w": 48, "ef": 96},
+              {"w": 64, "ef": 64},
+              {"w": 64, "ef": 80},
+              {"w": 64, "ef": 96},
+              {"w": 64, "ef": 112},
+              {"w": 64, "ef": 128},
+              {"w": 80, "ef": 64},
+              {"w": 80, "ef": 80},
+              {"w": 80, "ef": 96},
+              {"w": 80, "ef": 112},
+              {"w": 80, "ef": 128},
+              {"w": 96, "ef": 80},
+              {"w": 96, "ef": 96},
+              {"w": 96, "ef": 112},
+              {"w": 96, "ef": 128},
+              {"w": 112, "ef": 96},
+              {"w": 112, "ef": 112},
+              {"w": 112, "ef": 128},
+              {"w": 128, "ef": 112},
+              {"w": 128, "ef": 128}
+              ]
     faiss-t1:
       docker-tag: billion-scale-benchmark-faissconda
       module: benchmark.algorithms.faiss_t1
@@ -322,6 +331,43 @@ msturing-1B:
               "nprobe=256,quantizer_efSearch=256",
               "nprobe=256,quantizer_efSearch=512"]
 bigann-1B:
+    choonsik-dev:
+      docker-tag: billion-scale-benchmark-choonsik
+      module: benchmark.algorithms.choonsik
+      constructor: Choonsik
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: |
+              [{"model_suffix": "dev", "hnsw_m": 12, "hnsw_ef": 800, "opq_m": 32, "opq_pk": 256,
+              "cent_sample_cnt": 209715200, "cent_level1_sample_cnt": 20480000, "cent_level1_k": 3000, "cent_level2_k": 5000}]
+          query-args: |
+              [
+              {"w": 48, "ef": 48},
+              {"w": 48, "ef": 64},
+              {"w": 48, "ef": 80},
+              {"w": 48, "ef": 96},
+              {"w": 64, "ef": 64},
+              {"w": 64, "ef": 80},
+              {"w": 64, "ef": 96},
+              {"w": 64, "ef": 112},
+              {"w": 64, "ef": 128},
+              {"w": 80, "ef": 64},
+              {"w": 80, "ef": 80},
+              {"w": 80, "ef": 96},
+              {"w": 80, "ef": 112},
+              {"w": 80, "ef": 128},
+              {"w": 96, "ef": 80},
+              {"w": 96, "ef": 96},
+              {"w": 96, "ef": 112},
+              {"w": 96, "ef": 128},
+              {"w": 112, "ef": 96},
+              {"w": 112, "ef": 112},
+              {"w": 112, "ef": 128},
+              {"w": 128, "ef": 112},
+              {"w": 128, "ef": 128}
+              ]
+
     faiss-t1:
       docker-tag: billion-scale-benchmark-faissconda
       module: benchmark.algorithms.faiss_t1
@@ -404,6 +450,42 @@ ssnpp-1B:
               "nprobe=64,quantizer_efSearch=512,ht=126",
               "nprobe=256,quantizer_efSearch=256,ht=128"]
 text2image-1B:
+    choonsik-dev:
+      docker-tag: billion-scale-benchmark-choonsik
+      module: benchmark.algorithms.choonsik
+      constructor: Choonsik
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: |
+              [{"model_suffix": "dev", "hnsw_m": 12, "hnsw_ef": 800, "opq_m": 50, "opq_pk": 256,
+              "cent_sample_cnt": 104857600, "cent_level1_sample_cnt": 20480000, "cent_level1_k": 2048, "cent_level2_k": 4096}]
+          query-args: |
+              [
+              {"w": 48, "ef": 48},
+              {"w": 48, "ef": 64},
+              {"w": 48, "ef": 80},
+              {"w": 48, "ef": 96},
+              {"w": 64, "ef": 64},
+              {"w": 64, "ef": 80},
+              {"w": 64, "ef": 96},
+              {"w": 64, "ef": 112},
+              {"w": 64, "ef": 128},
+              {"w": 80, "ef": 64},
+              {"w": 80, "ef": 80},
+              {"w": 80, "ef": 96},
+              {"w": 80, "ef": 112},
+              {"w": 80, "ef": 128},
+              {"w": 96, "ef": 80},
+              {"w": 96, "ef": 96},
+              {"w": 96, "ef": 112},
+              {"w": 96, "ef": 128},
+              {"w": 112, "ef": 96},
+              {"w": 112, "ef": 112},
+              {"w": 112, "ef": 128},
+              {"w": 128, "ef": 112},
+              {"w": 128, "ef": 128}
+              ]
     faiss-t1:
       docker-tag: billion-scale-benchmark-faissconda
       module: benchmark.algorithms.faiss_t1
