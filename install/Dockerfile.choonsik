@@ -1,8 +1,6 @@
 FROM billion-scale-benchmark
 
-RUN apt-get update && apt-get install -y libopenblas-base libopenblas-dev libpython3-dev python3-dev google-perftools
-RUN ln -s /usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 /usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so
-
+RUN apt-get update && apt-get install -y libopenblas-base libopenblas-dev libpython3-dev python3-dev libgoogle-perftools-dev
 RUN pip3 install cython
 
 COPY ./choonsik/big-ann.git big-ann.git
